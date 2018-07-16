@@ -11,8 +11,8 @@ const bcryptSalt = 10;
 let transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
-    user: 'ducereu@gmail.com',
-    pass: 'abacab74' 
+    user: 'TeachAwayProject@gmail.com',
+    pass: 'teach1234away' 
   }
 });
 
@@ -69,7 +69,7 @@ authRoutes.post("/signup", (req, res, next) => {
       } else {
         res.redirect("/");
         transporter.sendMail({
-          from: '"My Awesome Project 👻" <pepe04444@gmail.com>',
+          from: '"Teach-Away 👻" <TeachAwayProject@gmail.com>',
           to: email, 
           subject: subject, 
 //          text: message,

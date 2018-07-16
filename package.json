@@ -1,10 +1,10 @@
 {
-  "name": "ducere",
+  "name": "teach-away",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "DEBUG=ducere:* nodemon ./bin/www"
+    "dev": "DEBUG=teach-away:* nodemon ./bin/www"
   },
   "dependencies": {
     "bcrypt": "^1.0.3",

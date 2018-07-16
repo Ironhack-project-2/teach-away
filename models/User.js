@@ -9,7 +9,8 @@ const userSchema = new Schema({
   confirmationCode: { type: String, unique: true },
   email: String,
   address: String,
-  fechaAlta: { type: Date, default: Date.now}
+  fechaAlta: { type: Date, default: Date.now},
+  avatar: String
 }, {
   timestamps: {
     createdAt: 'created_at',

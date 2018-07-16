@@ -1,15 +1,16 @@
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
-const claseSchema = new Schema({
+const aulaSchema = new Schema({
   idCurso: { type : ObjectId, ref: 'Curso' },
-  claseNum: Number,
+  idProfesor:  { type : ObjectId, ref: 'User' } ,
+  aulaNum: Number,
   contenido: [ { type: String } ],
   fecha: Date,
-  isActive: Boolean,
+  checked: Boolean,
   inscritos: [ { type : ObjectId, ref: 'User' } ],
-  asistentes: [ { type : ObjectId, ref: 'User' } ],
-  profesorID:  { type : ObjectId, ref: 'User' } 
+  asistentes: [ { type : ObjectId, ref: 'User' }]
+
 }, {
   timestamps: {
     createdAt: 'created_at',
@@ -17,5 +18,5 @@ const claseSchema = new Schema({
   }
 });
 
-const Clase = mongoose.model('Clase', claseSchema);
-module.exports = Clase;
+const Aula = mongoose.model('Aula', aulaSchema);
+module.exports = Aula;
