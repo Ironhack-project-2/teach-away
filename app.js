@@ -12,11 +12,12 @@ const path         = require('path');
 const session    = require("express-session");
 const MongoStore = require('connect-mongo')(session);
 const flash      = require("connect-flash");
+const DATABASE = process.env.DBURL;
     
 
 mongoose.Promise = Promise;
 mongoose
-  .connect('mongodb://localhost/teach-away', {useMongoClient: true})
+  .connect(DATABASE, {useMongoClient: true})
   .then(() => {
     console.log('Connected to Mongo!')
   }).catch(err => {

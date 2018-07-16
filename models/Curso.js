@@ -6,9 +6,8 @@ const cursoSchema = new Schema({
   descripcion: String,
   nivel: Number,
   aulas: [ { type : ObjectId, ref: 'Aula' } ],
-  profesores:  { type : ObjectId, ref: 'User' } ,
+  profesor:  { type : ObjectId, ref: 'User' } ,
   isActive: Boolean
-
 }, {
   timestamps: {
     createdAt: 'created_at',
