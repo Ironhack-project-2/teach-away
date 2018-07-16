@@ -1,0 +1,34 @@
+<!-- views/auth/signup.hbs -->
+<h2>Alta de usuario</h2>
+
+<form action="/auth/signup" method="POST" id="form-container">
+  <label for="username">Nombre de usuario: </label>
+  <input id="username" type="text" name="username" placeholder="Nombre de usuario">
+
+  <br><br>
+
+  <label for="password">Password: </label>
+  <input id="password" type="password" name="password" placeholder="Contraseña">
+  <br>
+
+  <label for="password2">Repita contraseña</label>
+  <input id="password2" type="password" name="password2" placeholder="Repita contraseña">
+  <br><br>
+
+  <label for="email">Email: </label>
+  <input id="email" type="email" name="email" placeholder="user@domain">
+
+
+  {{#if message }}
+    <div class="error-message">{{ message }}</div>
+  {{/if}}
+
+  <br><br>
+
+  <button>Create account</button>
+
+  <p class="account-message">
+    Ya tienes cuenta?
+    <a href="/auth/login">Login</a>
+  </p>
+</form>

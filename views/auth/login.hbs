@@ -1,0 +1,26 @@
+
+<h2>Login</h2>
+
+<form action="/auth/login" method="POST" id="form-container">
+  <label for="username">Nombre de Usuario</label>
+  <input id="username" type="text" name="username" placeholder="JonSnow">
+
+  <br><br>
+
+  <label for="password">Contraseña</label>
+  <input id="password" type="password" name="password" placeholder="Contraseña">
+  <br>
+
+  {{#if message }}
+    <div class="error-message">{{ message }}</div>
+  {{/if}}
+
+  <br><br>
+
+  <button>Login</button>
+
+  <p class="account-message">
+    No tienes cuenta todavía?
+    <a href="/auth/login">Alta</a>
+  </p>
+</form>
