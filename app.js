@@ -12,11 +12,12 @@ const path         = require('path');
 const session    = require("express-session");
 const MongoStore = require('connect-mongo')(session);
 const flash      = require("connect-flash");
+const DATABASE = process.env.DBURL;
     
 
 mongoose.Promise = Promise;
 mongoose
-  .connect('mongodb://localhost/teach-away', {useMongoClient: true})
+  .connect(DATABASE, {useMongoClient: true})
   .then(() => {
     console.log('Connected to Mongo!')
   }).catch(err => {
@@ -83,6 +84,11 @@ app.use('/', index);
 
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
+
+const teacherRoutes = require('./routes/teacher');
+app.use('/teacher', teacherRoutes);
       
+const studentRoutes = require('./routes/student');
+app.use('/student', teacherRoutes);
 
 module.exports = app;
