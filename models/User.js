@@ -5,11 +5,12 @@ const userSchema = new Schema({
   username: String,
   password: String,
   status: { type: String, enum: ["Pending Confirmation", "Active"], default : "Pending Confirmation" },
-  isTeacher: Boolean,
+  isTeacher: { type: Boolean, default: false },
   confirmationCode: { type: String, unique: true },
   email: String,
   address: String,
-  fechaAlta: { type: Date, default: Date.now}
+  fechaAlta: { type: Date, default: Date.now},
+  avatar: String
 }, {
   timestamps: {
     createdAt: 'created_at',

@@ -3,6 +3,7 @@ const passport = require('passport');
 const authRoutes = express.Router();
 const User = require("../models/User");
 const nodemailer = require('nodemailer');
+const { ensureLoggedIn, ensureLoggedOut, isTeacher} = require("../middleware/ensureLogin");
 
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
@@ -11,8 +12,8 @@ const bcryptSalt = 10;
 let transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
-    user: 'ducereu@gmail.com',
-    pass: 'abacab74' 
+    user: 'TeachAwayProject@gmail.com',
+    pass: 'teach1234away' 
   }
 });
 
@@ -21,7 +22,7 @@ authRoutes.get("/login", (req, res, next) => {
 });
 
 authRoutes.post("/login", passport.authenticate("local", {
-  successRedirect: "/auth/profile",
+  successRedirect: "/auth/userPanel",
   failureRedirect: "/auth/login",
   failureFlash: true,
   passReqToCallback: true
@@ -69,7 +70,7 @@ authRoutes.post("/signup", (req, res, next) => {
       } else {
         res.redirect("/");
         transporter.sendMail({
-          from: '"My Awesome Project 👻" <pepe04444@gmail.com>',
+          from: '"Teach-Away 👻" <TeachAwayProject@gmail.com>',
           to: email, 
           subject: subject, 
 //          text: message,
@@ -106,11 +107,16 @@ authRoutes.get("/confirm/:confirmationCode", (req, res, next) => {
   .catch (err => console.log(err))
 });
 
-authRoutes.get("/profile", (req, res, next) => {
-  username = res.locals.user.username;
-  status = res.locals.user.status;
-  res.render("auth/profile", { username, status});
+authRoutes.get("/userPanel", (req, res, next) => {
+  user = res.locals.user;
+  if (user.status == "Active"){
+  res.render("student/userPanel", { user });
+  } else {
+    res.render("auth/status", { user });
+  }
+
 });
+
 
 
 authRoutes.get("/logout", (req, res) => {

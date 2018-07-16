@@ -3,12 +3,11 @@ const Schema   = mongoose.Schema;
 
 const cursoSchema = new Schema({
   nombre: String,
+  descripcion: String,
   nivel: Number,
-  claseActual: Number,  
-  clases: [ { type : ObjectId, ref: 'Clase' } ],
-  profesores: [ { type : ObjectId, ref: 'User' } ],
-  isActive: Boolean,
-  costo: Number,
+  aulas: [ { type : ObjectId, ref: 'Aula' } ],
+  profesores:  { type : ObjectId, ref: 'User' } ,
+  isActive: Boolean
 
 }, {
   timestamps: {
