@@ -84,6 +84,11 @@ app.use('/', index);
 
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
+
+const teacherRoutes = require('./routes/teacher');
+app.use('/teacher', teacherRoutes);
       
+const studentRoutes = require('./routes/student');
+app.use('/student', teacherRoutes);
 
 module.exports = app;

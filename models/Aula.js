@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
 const aulaSchema = new Schema({
-  idCurso: { type : ObjectId, ref: 'Curso' },
-  idProfesor:  { type : ObjectId, ref: 'User' } ,
+  idCurso: { type : Schema.Types.ObjectId, ref: 'Curso' },
+  idProfesor:  { type : Schema.Types.ObjectId, ref: 'User' } ,
   aulaNum: Number,
   contenido: [ { type: String } ],
   fecha: Date,
   checked: Boolean,
-  inscritos: [ { type : ObjectId, ref: 'User' } ],
-  asistentes: [ { type : ObjectId, ref: 'User' }]
+  inscritos: [ { type : Schema.Types.ObjectId, ref: 'User' } ],
+  asistentes: [ { type : Schema.Types.ObjectId, ref: 'User' }]
 
 }, {
   timestamps: {

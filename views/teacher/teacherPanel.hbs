@@ -1,9 +1,16 @@
-<div class="container">
-
-    <h1>Bienvenido Profesor: {{user.username}}</h1>
-    <h2>Estatus:
-        <b>{{user.status}}</b>
-    </h2>
-    <br>
-    <a href="/auth/logout">Logout</a>
+<h1>Bienvenido Profesor: {{user.username}}</h1>
+<h2>Estatus: <b>{{user.status}}</b></h2>
+<br><br>
+<div>
+  {{#if cursos}}
+    <h2>Lista de Cursos asignados</h2>
+    {{each cursos}}
+        <h3>Nombre: {{this.nombre}}</h3>
+        <p><b>Descripción</b>{{this.descripcion}}</p>
+        <p><b>Nivel:</b>{{this.nivel}}</p>
+        <a href="/listaAulas/{{this._id}}">Detalles</a>
+        <br>
+    {{/each}}
+  {{/if}}
 </div>
+<a href="/auth/logout">Logout</a>
