@@ -9,6 +9,15 @@ const bcryptSalt = 10;
 
 const DATABASE = process.env.DBURL;
 mongoose.connect(DATABASE);
+
+/*
+User.findOne({}, (err, user) => {
+  userID = user._id;
+  console.log("Este es el userID: "+userID);
+  Aula.updateMany({}, { $push: { inscritos:  userID } }).then (()=> {console.log("OK");
+  mongoose.disconnect();})
+}).then (console.log("Ok 2"));
+*/
 User.collection.drop();
 Curso.collection.drop();
 Aula.collection.drop();
@@ -85,17 +94,17 @@ const aulas = [
     idCurso: null,
     idProfesor: null,
     aulaNum: 1,
-    contenido: null,
+    contenido: "https://www.youtube.com/watch?v=NdXPnJLR07E",
     fecha: null,
-    checked: true,
+    checked: false,
     inscritos: [],
     asistentes: []
   },
   {
     idCurso: null,
     idProfesor: null,
-    aulaNum: 1,
-    contenido: null,
+    aulaNum: 2,
+    contenido: "https://www.youtube.com/watch?v=rXme31-HVw0",
     fecha: null,
     checked: true,
     inscritos: [],
@@ -127,18 +136,39 @@ User.create(users, (err, data) => {
             })
               .then(answer => {
                 console.log("Aulas creadas");
-                Aula.updateMany({}, { idProfesor: user._id }).then(() => {mongoose.disconnect();})
-              })
-              .catch(err => {
-                console.log("ERROR AULAS:" + err);
+                Aula.updateMany({}, { idProfesor: user._id }).then(() => {
+                  console.log("Asignado profesor");
+                  User.find({ username: { $ne: "Giorgio" } }).then(users => {
+                    const promisesArray = [];
+                    for (var j = 0; j < users.length; j++) {
+                      userID = users[j]._id;
+//                      console.log(`Antes de entrar a insertar a: ${userID}, ${users[j].username}`)
+//                      promisesArray.push(new Promise(resolve => {
+                        Aula.updateMany({}, { $push: { inscritos:  userID } }).then (()=> {console.log("OK")});
+                        Aula.updateMany({}, { $push: { asistentes:  userID } }).then (()=> {console.log("OK2")});
+//                                                                }));
+                    }
+                    Curso.findOne({}).then(curso=>{Aula.updateMany({}, {idCurso : curso}).then(console.log("curso OK"))})
+                    setTimeout(()=>{mongoose.disconnect(); console.log("desconectado")},4000);
+//                    Promise.all(promisesArray)
+//                     .then(answer=> {console.log("Todo OK"+answer);
+//                                      mongoose.disconnect();
+//                                    }) 
+//                      .catch(err => console.log("ERROR: "+ err))               
+                  });
               });
+
+            })
+          .catch(err => {
+                console.log("ERROR AULAS:" + err);
           });
-        })
-        .catch(err => {
-          console.log("ERROR CURSO:" + err);
         });
+    })
+    .catch(err => {
+    console.log("ERROR CURSO:" + err);
+    });
     });
   })
   .catch(err => {
     console.log("ERROR USER:" + err);
-  });
+  }); 
