@@ -65,4 +65,10 @@ cursoRoutes.post("/editarCurso/:id", (req, res, next) => {
 
 
 
+
+
+
+
+
+
 module.exports = cursoRoutes;
