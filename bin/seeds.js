@@ -22,14 +22,20 @@ User.collection.drop();
 Curso.collection.drop();
 Aula.collection.drop();
 
+fechaFutura= new Date();
+fechaFutura.setDate(fechaFutura.getDate() + 7);
+fechaFutura2 = new Date();
+fechaFutura2.setDate(fechaFutura2.getDate() + 9);
 const password = "1";
 const hashPass = bcrypt.hashSync(password, bcryptSalt);
+
 const users = [
   {
     username: "Nico",
     password: hashPass,
     status: "Active",
     isTeacher: false,
+    confirmationCode: bcrypt.hashSync("Nico", bcryptSalt),
     address: "C/Marc Pomar, 33",
     avatar:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS37bXcPGRn6mPmyGq7kZSSVqh238jjBPtIsL5IiCDCthy32nunBA"
@@ -39,6 +45,7 @@ const users = [
     password: hashPass,
     status: "Active",
     isTeacher: false,
+    confirmationCode: bcrypt.hashSync("Bruno", bcryptSalt),
     address: "C/Marc Pomar, 33",
     avatar:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS37bXcPGRn6mPmyGq7kZSSVqh238jjBPtIsL5IiCDCthy32nunBA"
@@ -48,6 +55,7 @@ const users = [
     password: hashPass,
     status: "Active",
     isTeacher: false,
+    confirmationCode: bcrypt.hashSync("Kike", bcryptSalt),
     address: "C/Marc Pomar, 33",
     avatar:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS37bXcPGRn6mPmyGq7kZSSVqh238jjBPtIsL5IiCDCthy32nunBA"
@@ -57,6 +65,7 @@ const users = [
     password: hashPass,
     status: "Active",
     isTeacher: false,
+    confirmationCode: bcrypt.hashSync("Pablo", bcryptSalt),
     address: "C/Marc Pomar, 33",
     avatar:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS37bXcPGRn6mPmyGq7kZSSVqh238jjBPtIsL5IiCDCthy32nunBA"
@@ -66,6 +75,7 @@ const users = [
     password: hashPass,
     status: "Active",
     isTeacher: true,
+    confirmationCode: bcrypt.hashSync("Giorgio", bcryptSalt),
     address: "C/Marc Pomar, 33",
     avatar:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS37bXcPGRn6mPmyGq7kZSSVqh238jjBPtIsL5IiCDCthy32nunBA"
@@ -95,7 +105,7 @@ const aulas = [
     idProfesor: null,
     aulaNum: 1,
     contenido: "https://www.youtube.com/watch?v=NdXPnJLR07E",
-    fecha: null,
+    fecha: fechaFutura,
     checked: false,
     inscritos: [],
     asistentes: []
@@ -105,7 +115,7 @@ const aulas = [
     idProfesor: null,
     aulaNum: 2,
     contenido: "https://www.youtube.com/watch?v=rXme31-HVw0",
-    fecha: null,
+    fecha: fechaFutura2,
     checked: true,
     inscritos: [],
     asistentes: []
@@ -142,19 +152,11 @@ User.create(users, (err, data) => {
                     const promisesArray = [];
                     for (var j = 0; j < users.length; j++) {
                       userID = users[j]._id;
-//                      console.log(`Antes de entrar a insertar a: ${userID}, ${users[j].username}`)
-//                      promisesArray.push(new Promise(resolve => {
-                        Aula.updateMany({}, { $push: { inscritos:  userID } }).then (()=> {console.log("OK")});
-                        Aula.updateMany({}, { $push: { asistentes:  userID } }).then (()=> {console.log("OK2")});
-//                                                                }));
+                      Aula.updateMany({}, { $push: { inscritos:  userID } }).then (()=> {console.log("OK")});
+                      Aula.updateMany({}, { $push: { asistentes:  userID } }).then (()=> {console.log("OK2")});
                     }
                     Curso.findOne({}).then(curso=>{Aula.updateMany({}, {idCurso : curso}).then(console.log("curso OK"))})
-                    setTimeout(()=>{mongoose.disconnect(); console.log("desconectado")},4000);
-//                    Promise.all(promisesArray)
-//                     .then(answer=> {console.log("Todo OK"+answer);
-//                                      mongoose.disconnect();
-//                                    }) 
-//                      .catch(err => console.log("ERROR: "+ err))               
+                    setTimeout(()=>{mongoose.disconnect(); console.log("desconectado")},4000);            
                   });
               });
 
