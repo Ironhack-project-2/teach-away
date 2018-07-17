@@ -25,5 +25,44 @@ cursoRoutes.get("/editarCurso/:id", (req, res, next) => {
   });
 });
 
+cursoRoutes.post("/editarCurso/:id", (req, res, next) => {
+  const {fecha , hora , numeroAlumnos} = res.body;
+  today = new Date();
+  id = req.params.id;
+  user = res.locals.user;
+
+  if (nombre === "" || descripcion === "" || nivel === null || lecciones == null ) {
+    res.render("/teacherPanel", { message: "Por favor rellena todos los campos" });
+    return;
+  }
+
+  Curso.findOne({ nombre }, "nombre", (err, user) => {
+    if (user !== null) {
+      res.render("/teacherPanel", { message: "El nombre del curso ya existe" });
+      return;
+    }
+
+    const newAula = new Aula({
+      nombre,
+      descripcion,
+      nivel,
+      lecciones,
+      profesor
+    });
+
+    newAula.save((err) => {
+      if (err) {
+        res.render("/teacherPanel", { message: "Something went wrong" });
+      } else {
+        res.redirect("/teacher/teacherPanel");
+      }
+    // close save  
+    });
+    // close findOne
+  });
+  // close post
+});
+
+
 
 module.exports = cursoRoutes;

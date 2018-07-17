@@ -22,10 +22,19 @@ User.collection.drop();
 Curso.collection.drop();
 Aula.collection.drop();
 
-fechaFutura= new Date();
-fechaFutura.setDate(fechaFutura.getDate() + 7);
-fechaFutura2 = new Date();
-fechaFutura2.setDate(fechaFutura2.getDate() + 9);
+fechaClase= new Date();
+
+
+// Creacion de Fechas de una sola clase por curso
+let fechaFutura ={};
+let fechaFutura2={};
+fechaClase.setDate(fechaClase.getDate() + 7);
+fechaFutura.fechaLeccion=fechaClase;
+fechaFutura.vista=false;
+fechaClase.setDate(fechaClase.getDate() + 9);
+fechaFutura2.fechaLeccion=fechaClase;
+fechaFutura2.vista=false;
+
 const password = "1";
 const hashPass = bcrypt.hashSync(password, bcryptSalt);
 
@@ -87,15 +96,15 @@ const cursos = [
     nombre: "Inglés",
     descripcion: "El mejor curso de la historia para aprender en cinco semanas",
     nivel: 1,
-    lecciones: 6,
+    lecciones: 1,
     isActive: true,
     profesor: null
   },
   {
     nombre: "Francés",
     descripcion: "Un curso para aprender frances con 5000 palabras.",
-    nivel: 2,
-    lecciones: 6,
+    nivel: 1,
+    lecciones: 1,
     isActive: true,
     profesor: null
   }
@@ -105,9 +114,11 @@ const aulas = [
   {
     idCurso: null,
     idProfesor: null,
+    alumnosMax: 5,
+    leccionActual: 1,
     aulaNum: 1,
     contenido: "https://www.youtube.com/watch?v=NdXPnJLR07E",
-    fecha: fechaFutura,
+    fechas: [fechaFutura],
     checked: false,
     inscritos: [],
     asistentes: []
@@ -115,9 +126,11 @@ const aulas = [
   {
     idCurso: null,
     idProfesor: null,
-    aulaNum: 2,
+    alumnosMax: 5,
+    leccionActual: 1,
+    aulaNum: 1,
     contenido: "https://www.youtube.com/watch?v=rXme31-HVw0",
-    fecha: fechaFutura2,
+    fechas: [fechaFutura2],
     checked: true,
     inscritos: [],
     asistentes: []

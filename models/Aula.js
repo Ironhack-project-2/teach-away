@@ -4,12 +4,13 @@ const Schema   = mongoose.Schema;
 const aulaSchema = new Schema({
   idCurso: { type : Schema.Types.ObjectId, ref: 'Curso' },
   idProfesor:  { type : Schema.Types.ObjectId, ref: 'User' } ,
-  aulaNum: Number,
+  alumnosMax: Number,
+  leccionActual: Number,
   contenido: [ { type: String } ],
-  fecha: Date,
-  checked: Boolean,
+  fechas: [{fechaLeccion :Date,
+            vista: { type :Boolean, default : false} }],
   inscritos: [ { type : Schema.Types.ObjectId, ref: 'User' } ],
-  asistentes: [ { type : Schema.Types.ObjectId, ref: 'User' }]
+
 
 }, {
   timestamps: {
