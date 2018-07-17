@@ -87,6 +87,7 @@ const cursos = [
     nombre: "Inglés",
     descripcion: "El mejor curso de la historia para aprender en cinco semanas",
     nivel: 1,
+    lecciones: 6,
     isActive: true,
     profesor: null
   },
@@ -94,6 +95,7 @@ const cursos = [
     nombre: "Francés",
     descripcion: "Un curso para aprender frances con 5000 palabras.",
     nivel: 2,
+    lecciones: 6,
     isActive: true,
     profesor: null
   }
@@ -149,11 +151,10 @@ User.create(users, (err, data) => {
                 Aula.updateMany({}, { idProfesor: user._id }).then(() => {
                   console.log("Asignado profesor");
                   User.find({ username: { $ne: "Giorgio" } }).then(users => {
-                    const promisesArray = [];
                     for (var j = 0; j < users.length; j++) {
                       userID = users[j]._id;
                       Aula.updateMany({}, { $push: { inscritos:  userID } }).then (()=> {console.log("OK")});
-                      Aula.updateMany({}, { $push: { asistentes:  userID } }).then (()=> {console.log("OK2")});
+//                      Aula.updateMany({}, { $push: { asistentes:  userID } }).then (()=> {console.log("OK2")});
                     }
                     Curso.findOne({}).then(curso=>{Aula.updateMany({}, {idCurso : curso}).then(console.log("curso OK"))})
                     setTimeout(()=>{mongoose.disconnect(); console.log("desconectado")},4000);            

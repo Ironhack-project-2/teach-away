@@ -18,7 +18,7 @@ router.post("/becomeTeacher", (req, res, next) => {
     .then(() => {
       console.log(`Usuario ${user.username} se ha convertido a profesor`);
       user.isTeacher=true;
-      res.render("teacher/teacherPanel", { user });
+      res.render("teacher/teacherPanel", { user, cursos: null });
     })
     .catch(err => {
       console.log(err);

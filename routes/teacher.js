@@ -11,16 +11,59 @@ const { ensureLoggedIn, ensureLoggedOut, isTeacher} = require("../middleware/ens
 
 teacherRoutes.get("/teacherPanel", (req, res, next) => {
   user = res.locals.user;
-  Curso.find({ pofesor : user._id})
+  console.log(user._id);
+  Curso.find({ profesor : user._id}).sort({ created_at : -1})
   .then (cursos => {
     console.log(`Cursos: ${cursos}`)
-    res.render("teacher/teacherPanel", { user, cursos });
+    const obj = { user, cursos};
+    res.render("teacher/teacherPanel", { obj });
   })
   .catch(err => {
     console.log(err);
     res.redirect("error");
   });
 });
+
+teacherRoutes.post("/teacherPanel", (req, res, next) => {
+  const { nombre, descripcion, nivel, lecciones} = req.body;
+  const profesor = res.locals.user._id;
+
+
+
+const rol = req.body.role;
+  if (nombre === "" || descripcion === "" || nivel === null || lecciones == null ) {
+    res.render("/teacherPanel", { message: "Por favor rellena todos los campos" });
+    return;
+  }
+
+  Curso.findOne({ nombre }, "nombre", (err, user) => {
+    if (user !== null) {
+      res.render("/teacherPanel", { message: "El nombre del curso ya existe" });
+      return;
+    }
+
+    const newCurso = new Curso({
+      nombre,
+      descripcion,
+      nivel,
+      lecciones,
+      profesor
+    });
+
+    newCurso.save((err) => {
+      if (err) {
+        res.render("/teacherPanel", { message: "Something went wrong" });
+      } else {
+        res.redirect("/teacher/teacherPanel");
+      }
+    // close save  
+    });
+    // close findOne
+  });
+  // close post
+});
+
+
 
 /*
 router.post("/becomeTeacher", (req, res, next) => {

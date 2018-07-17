@@ -1,16 +1,53 @@
-<h1>Bienvenido Profesor: {{user.username}}</h1>
-<h2>Estatus: <b>{{user.status}}</b></h2>
-<br><br>
-<div>
-  {{#if cursos}}
-    <h2>Lista de Cursos asignados</h2>
-    {{each cursos}}
-        <h3>Nombre: {{this.nombre}}</h3>
-        <p><b>Descripción</b>{{this.descripcion}}</p>
-        <p><b>Nivel:</b>{{this.nivel}}</p>
-        <a href="/listaAulas/{{this._id}}">Detalles</a>
-        <br>
-    {{/each}}
-  {{/if}}
+<div class="container">
+
+  <h3>Bienvenido Profesor: {{ obj.user.username}}</h3>
+  <h4>Estatus:
+    <b>{{obj.user.status}}</b>
+  </h4>
+  <br>
+  <br>
+  <div class="row">
+    <div class="col-4"> {{#if obj.cursos}}
+      <h4>Lista de Cursos asignados</h4>
+      {{#each obj.cursos}}
+      <h4>Nombre: {{this.nombre}}</h4>
+      <p>
+        <b>Descripción</b>{{this.descripcion}}</p>
+      <p>
+        <b>Nivel:</b>{{this.nivel}}</p>
+      <a href="/curso/editarCurso/{{this._id}}">Editar curso o aulas</a>
+      <br> {{/each}} {{/if}}
+
+    </div>
+    <div class="col-4"></div>
+
+
+    <div class="col-4">
+      <h4>Alta de Curso</h4>
+      <form action="/teacher/teacherPanel" method="POST" id="add-curso-container">
+        <div class="form-group">
+          <label for="nombre">Nombre del Curso</label>
+          <input type="name" class="form-control" name="nombre" id="nombre" placeholder="Nombre de curso">
+        </div>
+        <div class="form-group">
+          <label for="descripcion">Descripción</label>
+          <input type="descripcion" class="form-control" name="descripcion" id="descripcion" placeholder="Decribe brevemente el curso">
+        </div>
+        <div class="form-group">
+          <label for="nivel">Nivel</label>
+          <input type="number" class="form-control" name="nivel" id="nivel" placeholder="Selecciona el nivel">
+        </div>
+        <div class="form-group">
+          <label for="lecciones">Número de lecciones</label>
+          <input type="number" class="form-control" name="lecciones" id="lecciones" placeholder="Número de lecciones">
+        </div>
+
+        {{#if message }}
+        <div class="error-message">{{ message }}</div>
+        {{/if}}
+        <button type="submit" class="btn btn-primary buttonCenter">Crear Curso</button>
+      </form>
+
+    </div>
+  </div>
 </div>
-<a href="/auth/logout">Logout</a>

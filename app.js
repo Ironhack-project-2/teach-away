@@ -89,6 +89,9 @@ const teacherRoutes = require('./routes/teacher');
 app.use('/teacher', teacherRoutes);
       
 const studentRoutes = require('./routes/student');
-app.use('/student', teacherRoutes);
+app.use('/student', studentRoutes);
+
+const cursoRoutes = require('./routes/curso');
+app.use('/curso', cursoRoutes);
 
 module.exports = app;
