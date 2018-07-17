@@ -26,4 +26,10 @@ cursoRoutes.get("/editarCurso/:id", (req, res, next) => {
 });
 
 
+
+
+
+
+
+
 module.exports = cursoRoutes;
