@@ -24,7 +24,7 @@ cursoRoutes.get("/editarCurso/:id", (req, res, next) => {
     console.log(err);
     res.redirect("error");
   });
-});
+}); 
 
 cursoRoutes.post("/editarCurso/:id", (req, res, next) => {
   const {fecha , hora , numeroAlumnos} = req.body;
