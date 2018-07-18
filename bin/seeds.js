@@ -96,7 +96,7 @@ const cursos = [
     nombre: "Inglés",
     descripcion: "El mejor curso de la historia para aprender en cinco semanas",
     nivel: 1,
-    lecciones: 1,
+    lecciones: 6,
     isActive: true,
     profesor: null
   },
@@ -104,7 +104,7 @@ const cursos = [
     nombre: "Francés",
     descripcion: "Un curso para aprender frances con 5000 palabras.",
     nivel: 1,
-    lecciones: 1,
+    lecciones: 6,
     isActive: true,
     profesor: null
   }

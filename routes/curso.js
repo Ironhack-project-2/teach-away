@@ -14,10 +14,11 @@ cursoRoutes.get("/editarCurso/:id", (req, res, next) => {
   console.log(`Este es el user ID: ${user._id}`);
   Curso.findById(id)
   .then (curso => {
-    console.log(curso);
-     console.log(`Lilstado del Curso: ${curso}`)
-     const obj = { user, curso};
+    Aula.find({ idCurso: id }).sort({ created_at : -1}).then (aulas =>{
+     console.log(`Listado de aulas: ${aulas}`);
+     const obj = { user, curso, aulas};
      res.render("curso/editarCurso", { obj });
+    })
   })
   .catch(err => {
     console.log(err);
@@ -28,7 +29,7 @@ cursoRoutes.get("/editarCurso/:id", (req, res, next) => {
 cursoRoutes.post("/editarCurso/:id", (req, res, next) => {
   const {fecha , hora , numeroAlumnos} = req.body;
   today = new Date();
-  fechaIni = new Date(fecha+"T"+hora+"Z");
+  fechaIni = new Date(fecha+"T"+hora);
   idCurso = req.params.id;
   idProfesor = res.locals.user._id;
   user=res.locals.user;
@@ -45,7 +46,9 @@ cursoRoutes.post("/editarCurso/:id", (req, res, next) => {
   console.log("Este es el curso:" + curso)
   lecciones = curso.lecciones;
 
-  /*  idCurso: { type : Schema.Types.ObjectId, ref: 'Curso' },
+    Aula.find({ idCurso }).sort({ created_at : -1}).then ( aulas => {
+
+     /*  idCurso: { type : Schema.Types.ObjectId, ref: 'Curso' },  
     idProfesor:  { type : Schema.Types.ObjectId, ref: 'User' } ,
     alumnosMax: Number,
     leccionActual: Number,
@@ -54,31 +57,38 @@ cursoRoutes.post("/editarCurso/:id", (req, res, next) => {
               vista: { type :Boolean, default : false} }],
     inscritos: [ { type : Schema.Types.ObjectId, ref: 'User' } ],*/
 
-    fechasArray = [];
-    fechacont = fechaIni;
-    for (var i=0; i < lecciones;i++){
+      fechasArray = [];
+      fechacont = fechaIni;
+      for (var i=0; i < lecciones;i++){
         objArray = { fechaLeccion: new Date(fechacont), vista: false}
         fechasArray.push(objArray);
         fechacont.setDate(fechacont.getDate() + 7);
-    }
-    const newAula = new Aula({
-      idCurso,
-      idProfesor,
-      alumnosMax: numeroAlumnos,
-      leccionActual: 0,
-      fechas: fechasArray,
-      inscritos: null
-    });
-    const obj = { user, curso};
-    newAula.save((err) => {
-      if (err) {
-        res.render("curso/editarCurso", { message: "Something went wrong" });
-      } else {
-        res.redirect("curso/editarCurso", { obj });
       }
-    // close save  
-    });
-    // close findOne
+      const newAula = new Aula({
+        idCurso,
+        idProfesor,
+        alumnosMax: numeroAlumnos,
+        leccionActual: 1,
+        fechas: fechasArray,
+        inscritos: null
+      });
+      
+      aulas.unshift(newAula);
+      const obj = { user, curso, aulas };   
+
+      newAula.save((err) => {
+
+        if (err) {
+          res.render("curso/editarCurso", { message: "Something went wrong" });
+        } else {
+       
+          res.render("curso/editarCurso", { obj });
+        }
+      // close save  
+      });
+    // close find aulas
+    })
+    // close findOne curso
   });
   // close post
 })
