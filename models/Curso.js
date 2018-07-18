@@ -8,7 +8,7 @@ const cursoSchema = new Schema({
   lecciones: Number,
   aulas: [ { type : Schema.Types.ObjectId, ref: 'Aula' } ],
   profesor:  { type : Schema.Types.ObjectId, ref: 'User' } ,
-  isActive: { type :Boolean, default : true}
+  isActive:  { type: Boolean, default: true },
 }, {
   timestamps: {
     createdAt: 'created_at',
