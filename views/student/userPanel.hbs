@@ -1,12 +1,12 @@
 <div class="container panels">
     <h4>
-        <b>Bienvenido {{user.username}}</b>
+        <b>Bienvenido {{obj.user.username}}</b>
     </h4>
     <h5>
-        <b>Estatus: </b>{{user.status}}</h5>
+        <b>Estatus: </b>{{obj.user.status}}</h5>
     <div class="row bloque">
         <div class="col-8">
-            {{#if obj.cursos}}
+            {{#if obj.curso}}
                 <h5>Lista de Cursos asignados</h5>
                     {{#each obj.cursos}}
                         <div class="area">
@@ -23,7 +23,7 @@
             <h5>No hay cursos asignados</h5>
             {{/unless}}
 
-        </div>¡
+        </div>
         <div class="col-4">
             <h5>Ver cursos</h5>
             <div class="area">

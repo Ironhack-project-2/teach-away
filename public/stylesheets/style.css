@@ -40,7 +40,8 @@ a {
   margin-bottom: 10px; }
 
 .panels {
-  padding: 20px; }
+  padding: 20px;
+  border: 1px; }
 
 .area {
   background-color: white;

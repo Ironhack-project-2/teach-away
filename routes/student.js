@@ -8,6 +8,7 @@ const { ensureLoggedIn, ensureLoggedOut, isTeacher} = require("../middleware/ens
 
 userRoutes.get("/studentPanel", (req, res, next) => {
   user = res.locals.user;
+
   res.render("student/userPanel", { user });
 });
 
