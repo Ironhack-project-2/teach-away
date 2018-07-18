@@ -94,12 +94,20 @@ cursoRoutes.post("/editarCurso/:id", (req, res, next) => {
 })
 
 
-
-
-
-
-
-
+cursoRoutes.get("/listadoCursos", (req, res, next) => {
+  user = res.locals.user;
+  console.log(user._id);
+  Curso.find({ isActive : true}).sort({ created_at : -1})
+  .then (cursos => {
+    console.log(`Cursos: ${cursos}`)
+    const obj = { user, cursos};
+    res.render("curso/listadoCursos", { obj });
+  })
+  .catch(err => {
+    console.log(err);
+    res.redirect("error");
+  });
+});
 
 
 module.exports = cursoRoutes;
