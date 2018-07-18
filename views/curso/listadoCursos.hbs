@@ -1,5 +1,4 @@
 <div class="container panels">
-
 {{#each curso}}
     <div class="container area">
         <h5><b>Nombre: </b>{{this.nombre}}</h5>
@@ -7,11 +6,12 @@
         <h6><b>Profesor: </b>{{this.profesor}}</h6>
         <h6><b>Nivel: </b>{{this.nivel}}</h6>
         {{#each this.aulas}}
-        <h6><b>Nivel: </b>{{this.fechas}}</h6>
+            <h6><b>Nivel: </b></h6>
+            {{#each this.fechas}}
+                {{this.fechaLeccion}}
+            {{/each}}
+        <a href="/curso/apuntame/{{this._id}}">Apuntarse</a>
         {{/each}}
-        <a href="/curso/aulasCurso/{{this._id}}">Ver aulas</a>
     </div>
 {{/each}}
-
-
 </div>

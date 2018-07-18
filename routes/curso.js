@@ -86,7 +86,7 @@ cursoRoutes.post("/editarCurso/:id", (req, res, next) => {
         alumnosMax: numeroAlumnos,
         leccionActual: 1,
         fechas: fechasArray,
-        inscritos: null
+        inscritos: []
       });
       
        aulas.unshift(newAula);
@@ -122,9 +122,46 @@ cursoRoutes.get("/listadoCursos", (req, res, next) => {
       res.render("curso/listadoCursos", { curso });
     })
     .catch(err => {
-      console.log(err);
+  //    console.log(err);
       res.redirect("error");
     });
+});
+
+cursoRoutes.get("/apuntame/:id", (req, res, next) => {
+  const user = res.locals.user;
+  const idAula= req.params.id;
+  console.log("==== REQ PARAMS ====");
+  console.log(idAula);
+
+  Aula.findById({_id:idAula}).then(aula => {
+      console.log(aula)
+        if (aula.inscritos.length < aula.alumnosMax){
+          Aula.findByIdAndUpdate({_id:idAula}, {
+            $push: { inscritos: user._id }
+          }).then(()=> {
+                  Curso.findById(aula.idCurso).then (curso => {
+                  obj = { user, curso, aula }
+                  User.findByIdAndUpdate({_id: user._id}, {
+                    $push: { aulas: idAula }
+                  }).then (()=>{
+                    console.log("INSERTADO USUARIO EN AULA")
+                    res.render("student/userPanel", { user });
+                })
+            })
+        })
+      .catch(err => {
+         console.log(err);
+
+      });
+    } else {
+      console.log("SE HA EXCEDIDO LA CAPACIDAD DEL CURSO. NO PUEDE INSCRIBIRSE");
+      res.render("", { message: "Se ha excedido la capacidad. No puede apuntarse a estas aulas"})
+    }
+  })
+  .catch(err => {
+     console.log(err);
+  });
+
 });
 
 module.exports = cursoRoutes;
