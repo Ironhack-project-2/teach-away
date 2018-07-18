@@ -141,11 +141,12 @@ cursoRoutes.get("/apuntame/:id", (req, res, next) => {
           }).then(()=> {
                   Curso.findById(aula.idCurso).then (curso => {
                   obj = { user, curso, aula }
+                  const suscrito = { idAula: aula._id, idCurso: curso._id };
                   User.findByIdAndUpdate({_id: user._id}, {
-                    $push: { aulas: idAula }
+                    $push: { suscrito }
                   }).then (()=>{
                     console.log("INSERTADO USUARIO EN AULA")
-                    res.render("student/userPanel", { user });
+                    res.render("student/userPanel", { obj });
                 })
             })
         })

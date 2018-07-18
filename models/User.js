@@ -11,7 +11,8 @@ const userSchema = new Schema({
   address: String,
   fechaAlta: { type: Date, default: Date.now},
   avatar: String,
-  aulas: [ { type : Schema.Types.ObjectId, ref: 'Aula' } ],
+  suscrito: [ { idAula : { type : Schema.Types.ObjectId, ref: 'Aula' },
+            idCurso : { type : Schema.Types.ObjectId, ref: 'Curso' } } ]
 }, {
   timestamps: {
     createdAt: 'created_at',
