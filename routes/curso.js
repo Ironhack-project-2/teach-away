@@ -10,12 +10,10 @@ const { ensureLoggedIn, ensureLoggedOut, isTeacher} = require("../middleware/ens
 cursoRoutes.get("/editarCurso/:id", (req, res, next) => {
   id = req.params.id;
   user = res.locals.user;
-  console.log(id);
-  console.log(`Este es el user ID: ${user._id}`);
+
   Curso.findById(id)
   .then (curso => {
     Aula.find({ idCurso: id }).sort({ created_at : -1}).then (aulas =>{
-     console.log(`Listado de aulas: ${aulas}`);
      const obj = { user, curso, aulas};
      res.render("curso/editarCurso", { obj });
     })
@@ -42,8 +40,7 @@ cursoRoutes.post("/editarCurso/:id", (req, res, next) => {
   }
 
   Curso.findById(idCurso).then( curso => {
-  console.log("Id del curso: "+ idCurso);
-  console.log("Este es el curso:" + curso)
+
   lecciones = curso.lecciones;
 
     Aula.find({ idCurso }).sort({ created_at : -1}).then ( aulas => {
@@ -56,14 +53,29 @@ cursoRoutes.post("/editarCurso/:id", (req, res, next) => {
     fechas: [{fechaLeccion :Date,
               vista: { type :Boolean, default : false} }],
     inscritos: [ { type : Schema.Types.ObjectId, ref: 'User' } ],*/
-
-      fechasArray = [];
-      fechacont = fechaIni;
-      for (var i=0; i < lecciones;i++){
-        objArray = { fechaLeccion: new Date(fechacont), vista: false}
-        fechasArray.push(objArray);
-        fechacont.setDate(fechacont.getDate() + 7);
+    fechasArray = [];
+    fechacont = fechaIni;
+    for (var i=0; i < lecciones;i++){
+      objArray = { fechaLeccion: new Date(fechacont), vista: false}
+      fechasArray.push(objArray);
+      fechacont.setDate(fechacont.getDate() + 7);
+    }
+    console.log("=======Aulas ====");
+    console.log(aulas);
+    console.log("===============")
+    if (aulas != null) {  
+          for (let j=0; j < fechasArray.length; j++){
+            for(let i=0; i < aulas[i].fechas.length; i++){
+                diff = fechasArray[j]-aulas.fechas.fechaLeccion[i];
+                console.log(`Diff es: ${diff}`);
+                if ((diff > -3600000) && (diff < 3600000)){
+                  console.log("ERROR: Hay coincidencia de fechas");
+                  res.render("curso/editarCurso", { message: "Conflicto con fechas escogidas" });                 
+                }
+            }
+          }       
       }
+
       const newAula = new Aula({
         idCurso,
         idProfesor,
@@ -96,10 +108,10 @@ cursoRoutes.post("/editarCurso/:id", (req, res, next) => {
 
 cursoRoutes.get("/listadoCursos", (req, res, next) => {
   user = res.locals.user;
-  console.log(user._id);
+
   Curso.find({ isActive : true}).sort({ created_at : -1})
   .then (cursos => {
-    console.log(`Cursos: ${cursos}`)
+
     const obj = { user, cursos};
     res.render("curso/listadoCursos", { obj });
   })

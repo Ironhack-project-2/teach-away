@@ -12,11 +12,16 @@
 <div>
     {{#if obj.aulas}}
         {{#each obj.aulas}}
-            <h5>Aula: {{this._id}}</h5>
-            <h6>Maximo: {{this.alumnosMax}}</h6>
+            <h5>Horario: {{this._id}}</h5>
+            {{#each this.fechas}}
+                    <p>Hora:{{this.fechaLeccion}}</p>
+             {{/each}}
         {{/each}}
     {{/if}}
 </div>
+{{#if message }}
+    <div class="error-message">{{ message }}</div>
+  {{/if}}
 
 <div class="container">
     <div class="row">
