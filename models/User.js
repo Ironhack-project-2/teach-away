@@ -10,7 +10,8 @@ const userSchema = new Schema({
   email: String,
   address: String,
   fechaAlta: { type: Date, default: Date.now},
-  avatar: String
+  avatar: String,
+  aulas: [ { type : Schema.Types.ObjectId, ref: 'Aula' } ],
 }, {
   timestamps: {
     createdAt: 'created_at',

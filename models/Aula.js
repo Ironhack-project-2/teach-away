@@ -9,7 +9,7 @@ const aulaSchema = new Schema({
   contenido: [ { type: String } ],
   fechas: [{fechaLeccion :Date,
             vista: { type :Boolean, default : false} }],
-  inscritos: [ { type : Schema.Types.ObjectId, ref: 'User', } ],
+  inscritos: [ { type : Schema.Types.ObjectId, ref: 'User' , default: []} ],
 
 
 }, {
