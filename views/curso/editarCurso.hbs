@@ -1,27 +1,33 @@
-<div class="container">
+<div class="container panels">
     <div class="row">
-        <div clas="col">
+        <div clas="col-12">
             <h3>Nombre: {{obj.curso.nombre}}</h3>
             <h4>Descripción: {{obj.curso.descripcion}}</h4>
             <h4>Nivel: {{obj.curso.nivel}}</h4>
             <h4>Lecciones: {{obj.curso.lecciones}}</h4>
         </div>
     </div>
-</div>
-
-<div>
-    {{#if obj.aulas}}
-        {{#each obj.aulas}}
+    <div class="row">
+        <div clas="col-12">
+            {{#if obj.aulas}} {{#each obj.aulas}}
             <h5>Horario: {{this._id}}</h5>
-            {{#each this.fechas}}
-                    <p>Hora:{{this.fechaLeccion}}</p>
-             {{/each}}
-        {{/each}}
-    {{/if}}
+            <div class="row d-flex flex-wrap">
+                {{#each this.fechas}}
+                <div class="col-2">
+                    
+                    <p>Hora:</p>
+                    <p>{{this.fechaLeccion}}</p>
+                    
+                </div>
+                {{/each}}
+            </div>
+            {{/each}} {{/if}}
+        </div>
+    </div>
 </div>
 {{#if obj.message }}
-    <div class="error-message">{{ obj.message }}</div>
-  {{/if}}
+<div class="error-message">{{ obj.message }}</div>
+{{/if}}
 
 <div class="container">
     <div class="row">
@@ -38,9 +44,9 @@
                             </div>
                         </div>
                     </div>
-                    
-                        <div class="col-3">
-                            <div class="row">
+
+                    <div class="col-3">
+                        <div class="row">
                             <div class="col-2">
                                 <label for="example-time-input" class="col-form-label">Time</label>
                             </div>
@@ -49,9 +55,9 @@
                             </div>
                         </div>
                     </div>
-                    
-                        <div class="col-3">
-                            <div class="row">
+
+                    <div class="col-3">
+                        <div class="row">
                             <div class="col-3">
                                 <label for="example-number-input" class="col-form-label">Alumnos</label>
                             </div>

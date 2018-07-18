@@ -4,27 +4,26 @@
     </h4>
     <h5>
         <b>Estatus: </b>{{user.status}}</h5>
-
     <div class="row bloque">
         <div class="col-8">
             {{#if obj.cursos}}
-            <h5>Lista de Cursos asignados</h5>
-            {{#each obj.cursos}}
-            <div class="area">
-                <h4>Nombre: {{this.nombre}}</h4>
-                <p>
-                    <b>Descripción</b>{{this.descripcion}}</p>
-                <p>
-                    <b>Nivel:</b>{{this.nivel}}</p>
-                <a href="/curso/editarCurso/{{this._id}}">Editar curso o aulas</a>
-                <br>
-            </div>{{/each}} {{/if}}
+                <h5>Lista de Cursos asignados</h5>
+                    {{#each obj.cursos}}
+                        <div class="area">
+                            <h4>Nombre: {{this.nombre}}</h4>
+                            <p><b>Descripción</b>{{this.descripcion}}</p>
+                            <p><b>Nivel:</b>{{this.nivel}}</p>
+                            <a href="/curso/editarCurso/{{this._id}}">Editar curso o aulas</a>
+                            <br>
+                        </div>
+                    {{/each}}
+            {{/if}}
+
             {{#unless obj.cursos}}
             <h5>No hay cursos asignados</h5>
             {{/unless}}
 
-        </div>
-
+        </div>¡
         <div class="col-4">
             <h5>Ver cursos</h5>
             <div class="area">

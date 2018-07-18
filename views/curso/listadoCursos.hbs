@@ -7,9 +7,14 @@
         <h6><b>Profesor: </b>{{this.profesor}}</h6>
         <h6><b>Nivel: </b>{{this.nivel}}</h6>
         {{#each this.aulas}}
-        <h6><b>Nivel: </b>{{this.fechas}}</h6>
+        <h6><b>Nivel: </b>{{#each this.fechas}}
+        {{this.fechaLeccion}}
+        
         {{/each}}
-        <a href="/curso/aulasCurso/{{this._id}}">Ver aulas</a>
+        <a href="/curso/apuntame/{{this._id}}">Apuntarse</a>
+        </h6>
+         
+        {{/each}}
     </div>
 {{/each}}
 
