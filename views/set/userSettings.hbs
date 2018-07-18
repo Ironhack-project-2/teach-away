@@ -6,19 +6,19 @@
       <form action="/set/userSettings" method="POST" id="form-container">
         <div class="form-group">
           <label for="username">Cambia tu nombre de usuario</label>
-          <input type="name" class="form-control" name="newName" id="newName" placeholder={{user.username}}>
+          <input type="name" class="form-control" name="username" id="username" placeholder={{user.username}}>
         </div>
         <div class="form-group">
           <label for="password">Cambia tu nombre de contraseña</label>
-          <input type="password" class="form-control" name="newPass" id="newPass" placeholder="Contraseña">
+          <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña">
         </div>
         <div class="form-group">
           <label for="password">Confirma tu contraseña</label>
-          <input type="password" class="form-control" name="newPass2" id="newPass2" placeholder="Repita contraseña">
+          <input type="password" class="form-control" name="password2" id="password2" placeholder="Repita contraseña">
         </div>
         <div class="form-group">
           <label for="email">Cambia tu email</label>
-          <input type="email" class="form-control" name="newEmail" id="newEmail" placeholder={{user.email}}>
+          <input type="email" class="form-control" name="email" id="email" placeholder={{user.email}}>
         </div>
 
         {{#if message }}

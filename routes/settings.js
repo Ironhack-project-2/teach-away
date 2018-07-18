@@ -8,17 +8,14 @@ setRoutes.get("/userSettings", (req, res, next) => {
   res.render("set/userSettings", { user });
 });
 
-setRoutes.post("/userSettings", (req, res, next) => {
-    user = res.locals.user;
-
-
-
-
-    
+setRoutes.post("/userSettings", (req, res) => {
+  user = res.locals.user;
+  const { username, password, email } = req.body;
+  console.log(user._id)
+  User.findByIdAndUpdate(user._id,{username, password, email})
+  .then(user => {
     res.render("set/confirmSettings", { user });
   });
-
-
-
+});
 
 module.exports = setRoutes;
