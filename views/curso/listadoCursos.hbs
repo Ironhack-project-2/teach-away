@@ -1,0 +1,14 @@
+<div class="container panels">
+
+{{#each obj.cursos}}
+    <div class="container area">
+        <h5><b>Nombre: </b>{{this.nombre}}</h5>
+        <h6><b>Descripción: </b>{{this.descripcion}}</h6>
+        <h6><b>Profesor: </b>{{this.profesor}}</h6>
+        <h6><b>Nivel: </b>{{this.nivel}}</h6>
+        <a href="/curso/aulasCurso/{{this._id}}">Ver aulas</a>
+    </div>
+{{/each}}
+
+
+</div>

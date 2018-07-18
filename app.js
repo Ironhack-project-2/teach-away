@@ -94,4 +94,9 @@ app.use('/student', studentRoutes);
 const cursoRoutes = require('./routes/curso');
 app.use('/curso', cursoRoutes);
 
+const setRoutes = require('./routes/settings');
+app.use('/set', setRoutes);
+
+
+
 module.exports = app;
