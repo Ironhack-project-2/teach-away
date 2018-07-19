@@ -12,9 +12,10 @@ const { ensureLoggedIn, ensureLoggedOut, isTeacher} = require("../middleware/ens
 teacherRoutes.get("/teacherPanel", (req, res, next) => {
   user = res.locals.user;
 
-  Curso.find({ profesor : user._id}).sort({ created_at : -1})
+  Curso.find({ profesor : user._id}).sort({ created_at : -1}).populate('aulas')
   .then (cursos => {
-
+    console.log("======== CURSOS =====");
+    console.log(cursos);
     const obj = { user, cursos};
     res.render("teacher/teacherPanel", { obj });
   })

@@ -28,6 +28,11 @@
               <span>
                 <br><br>
                 <b>Aulas</b>
+                {{#each this.aulas}}
+                  {{#each this.fechas}}
+                    <p>Fechas: {{this.fechaLeccion}}</p>
+                   {{/each}}
+                {{/each}}
               </span>
               <br><br>
               <a href="/curso/editarCurso/{{this._id}}">Editar aulas</a>
