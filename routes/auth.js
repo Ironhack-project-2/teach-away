@@ -95,7 +95,7 @@ authRoutes.get("/confirm/:confirmationCode", (req, res, next) => {
     if (user === null) {
       res.render("error", { message: "The username not found. Something is wrong" });
     }else {
-      User.findByIdAndUpdate(user._id,{ status : "Active" })
+      User.findByIdAndUpdate(user._id,{ status : true })
       .then(() =>  { 
         console.log(`Usuario ${user._id} ha sido activado`);
         res.render("auth/confirmation", { username });
@@ -109,12 +109,7 @@ authRoutes.get("/confirm/:confirmationCode", (req, res, next) => {
 
 authRoutes.get("/userPanel", (req, res, next) => {
   user = res.locals.user;
-  if (user.status == "Active"){
   res.render("student/userPanel", { user });
-  } else {
-    res.render("auth/status", { user });
-  }
-
 });
 
 

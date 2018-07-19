@@ -10,7 +10,7 @@
                 <h5>Lista de Cursos asignados</h5>
                     {{#each obj.cursos}}
                         <div class="area">
-                            <h4>Nombre: {{this.nombre}}</h4>
+                            <h6>{{this.nombre}}</h6>
                             <p><b>Descripción</b>{{this.descripcion}}</p>
                             <p><b>Nivel:</b>{{this.nivel}}</p>
                             <a href="/curso/editarCurso/{{this._id}}">Editar curso o aulas</a>

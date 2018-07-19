@@ -1,15 +1,23 @@
-
 <div class="container">
-
-<h2>{{user.username}} conviertete en profesor</h2>
-
-<form action="/becomeTeacher" method="POST" id="form-container">
+  <div class="row justify-content-center ">
+    <div class="col-7 panels centrado">
 
 
-  <button>Convertir</button>
+      <h2>{{user.username}}, sabemos que estás preparado,<br>¿quieres conviertete en profesor?</h2>
+      <br>
+      <p>Nam at lacus ac lacus tempus tincidunt vitae id mauris. Sed mattis, mi et sollicitudin facilisis, enim metus scelerisque justo, ac varius lacus eros quis tortor. Aenean ornare lorem et turpis efficitur auctor et auctor ante. Vestibulum ac vestibulum nibh.</p>
+<br>
+      <br>
+      <form action="/becomeTeacher" method="POST" id="form-container">
 
-  <p class="account-message">
-    Ya tienes cuenta?
-    <a href="/auth/login">Login</a>
-  </p>
-</form></div>
+        <button type="submit" class="btn btn-primary buttonCenter">Convertir</button>
+
+        <p class="account-message">
+          ¿No estás preparado?
+          <a href="/student/userPanel">Volver a escritorio</a>
+        </p>
+      </form>
+
+    </div>
+  </div>
+</div>

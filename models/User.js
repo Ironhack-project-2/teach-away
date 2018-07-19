@@ -4,7 +4,7 @@ const Schema   = mongoose.Schema;
 const userSchema = new Schema({
   username: String,
   password: String,
-  status: { type: String, enum: ["Pending Confirmation", "Active"], default : "Pending Confirmation" },
+  status: { type: Boolean, default: false },
   isTeacher: { type: Boolean, default: false },
   confirmationCode: { type: String, unique: true },
   email: String,
