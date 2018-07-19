@@ -97,6 +97,9 @@ app.use('/curso', cursoRoutes);
 const setRoutes = require('./routes/settings');
 app.use('/set', setRoutes);
 
+const skypeRoutes = require('./routes/skype');
+app.use('/skype', skypeRoutes);
+
 
 
 module.exports = app;
