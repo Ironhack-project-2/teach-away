@@ -6,7 +6,7 @@ const aulaSchema = new Schema({
   idProfesor:  { type : Schema.Types.ObjectId, ref: 'User' } ,
   alumnosMax: Number,
   leccionActual: Number,
-  contenido: { type: String, default: "https://hangouts.google.com/hangouts/_/pf5npsskmjgt3btpr3u6jw65zee" },
+  contenido: { type: String, default: "zithnp6uj5capgjev2jb7kzb5ie?hl=es" },
   fechas: [{fechaLeccion :Date,
             vista: { type :Boolean, default : false} }],
   inscritos: [ { type : Schema.Types.ObjectId, ref: 'User' } ],
