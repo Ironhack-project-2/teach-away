@@ -6,20 +6,23 @@
         <b>Estatus: </b>{{obj.user.status}}</h5>
     <div class="row bloque">
         <div class="col-8">
-            {{#if obj.curso}}
-                <h5>Lista de Cursos asignados</h5>
-                    {{#each obj.cursos}}
+            {{#if obj.aulas}}
+                <h5>Mis cursos</h5>
+                    {{#each obj.aulas}}
                         <div class="area">
-                            <h6>{{this.nombre}}</h6>
-                            <p><b>Descripción</b>{{this.descripcion}}</p>
-                            <p><b>Nivel:</b>{{this.nivel}}</p>
-                            <a href="/curso/editarCurso/{{this._id}}">Editar curso o aulas</a>
+                            <h6>{{this.idCurso.nombre}}</h6>
+                            <p><b>Descripción</b>{{this.idCurso.descripcion}}</p>
+                            <p><b>Nivel:</b>{{this.idCurso.nivel}}</p>
+                            {{#each this.fechas}}
+                            <p><b>Fecha: </b>{{this.fechaLeccion}}</p>
+                            {{/each}}
+                            <a href="https://talkgadget.google.com/hangouts/_/{{this.contenido}}">Ir a clase</a>
                             <br>
                         </div>
                     {{/each}}
             {{/if}}
 
-            {{#unless obj.cursos}}
+            {{#unless obj.aulas}}
             <h5>No hay cursos asignados</h5>
             {{/unless}}
 
@@ -32,4 +35,4 @@
         </div>
     </div>
 </div>
- <a href="/skype/verClase">Ver clase</a>    
+ <a href="/curso/verClase">Ver clase</a>    

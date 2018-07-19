@@ -165,10 +165,9 @@ cursoRoutes.get("/apuntame/:id", (req, res, next) => {
 
 });
 
-// cursoRoutes.get("/verClase", (req, res, next) => {
-//   const user = res.locals.user;
-//   res.render("curso/verClase", {});
-//   //SkypeWebControl.SDK.start();
+cursoRoutes.get("/verClase", (req, res, next) => {
+   const user = res.locals.user;
+   res.render("curso/verClase", {});
 
-// })
+ })
 module.exports = cursoRoutes;
