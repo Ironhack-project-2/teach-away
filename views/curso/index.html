@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <main>
+      <p class="bold">Messages from Skype Interviews webhook</p>
+      <ul id="messages">
+        No webhook message yet
+      </ul>
+    </main>
+
+    <script>
+      setInterval(function() {
+        fetch('./messages').then(function(res) { 
+          return res.json() 
+        }).then(function(messages) {
+          if (messages.length === 0) {
+            return;
+          }
+          var messagesList = document.getElementById("messages")
+          messagesList.innerHTML = ""
+          messages.forEach(message => {
+            messagesList.innerHTML += "<li>" + JSON.stringify(message) + "</li>"
+          })
+        })
+      }, 500)
+    </script>
+
+  </body>
+</html>
