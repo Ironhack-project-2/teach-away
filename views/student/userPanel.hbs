@@ -14,9 +14,11 @@
                             <p><b>Descripción</b>{{this.idCurso.descripcion}}</p>
                             <p><b>Nivel:</b>{{this.idCurso.nivel}}</p>
                             {{#each this.fechas}}
-                            <p><b>Fecha: </b>{{this.fechaLeccion}}</p>
+                              <p><b>Fecha: </b>{{this.fechaLeccion}}</p>
+                              {{#if this.vista}}
+                                  <a href="https://talkgadget.google.com/hangouts/_/{{this.contenido}}">Ir a clase</a>
+                              {{/if}}                           
                             {{/each}}
-                            <a href="https://talkgadget.google.com/hangouts/_/{{this.contenido}}">Ir a clase</a>
                             <br>
                         </div>
                     {{/each}}
@@ -35,4 +37,3 @@
         </div>
     </div>
 </div>
- <a href="/curso/verClase">Ver clase</a>    
