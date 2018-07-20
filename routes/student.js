@@ -13,6 +13,20 @@ const { ensureLoggedIn, ensureLoggedOut, isTeacher} = require("../middleware/ens
 //     Aula.findOne(userInfo.suscritos[index].idAula)
 //   })
 // }
+function fechaAulaActiva(date1, date2){
+  console.log("================ RESTA DE FECHAS =====");
+  console.log("fecha1: " + date1 + " fecha 2: "+ date2);
+  d2 = new Date(date2);
+  d1 = new Date(date1);
+  
+  console.log(date2-date1);
+  if ((date2-date1) < 86400000){
+    
+    return true;
+  } else {
+    return false;
+  }
+}
 
 userRoutes.get("/studentPanel", (req, res, next) => {
   user = res.locals.user;
@@ -29,6 +43,15 @@ userRoutes.get("/studentPanel", (req, res, next) => {
       console.log("============= AULAS ==========");
       console.log(aulas)
       const obj = { user, aulas };
+      let today = new Date();
+      for (var i=0; i < aulas.length; i++){
+        for (var j=0; j < aulas[i].fechas.length; j++){
+          console.log(aulas[i].fechas[j].fechaLeccion);
+          if (fechaAulaActiva(today, aulas[i].fechas[j].fechaLeccion)){
+            aulas[i].fechas[j].vista = true;
+          }
+        }
+      }
       res.render("student/userPanel", {obj});
     })
 
